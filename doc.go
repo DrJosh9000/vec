@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // Package vec is a simplistic, non-optimised 2D vector math library and
-//
+// some routines for segment intersections and graphs in the plane.
 //
 // It has two basic types, F2 and I2, representing points in the plane.
 // The components of F2 are float64, and the components of I2 are int.
