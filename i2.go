@@ -54,6 +54,12 @@ func (v I2) MulDiv(n, d int64) I2 {
 	return I2{int(vx), int(vy)}
 }
 
+// EMul returns the element-wise product of v and w.
+func (v I2) EMul(w I2) I2 { return I2{v.X * w.X, v.Y * w.Y} }
+
+// EDiv returns the element-wise quotient of v and w.
+func (v I2) EDiv(w I2) I2 { return I2{v.X / w.X, v.Y / w.Y} }
+
 // Mod returns the remainder of both components divided by k.
 func (v I2) Mod(k int) I2 { return I2{v.X % k, v.Y % k} }
 
