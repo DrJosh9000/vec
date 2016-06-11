@@ -164,8 +164,8 @@ func (g *Graph) NearestPoint(p I2) (e Edge, q I2) {
 }
 
 // FindPath finds a path from start to end, even if start and end are not vertices.
-// The path will only use vertices contained in the rectangle boundsUL-boundsDR.
-func FindPath(obstacles, paths *Graph, start, end, boundsUL, boundsDR I2) ([]I2, error) {
+// The path will only use vertices contained in the limits Rect.
+func FindPath(obstacles, paths *Graph, start, end I2, limits Rect) ([]I2, error) {
 	// Is there a straight-line path?
 	if !obstacles.Blocks(start, end) {
 		return []I2{end}, nil
@@ -179,7 +179,7 @@ func FindPath(obstacles, paths *Graph, start, end, boundsUL, boundsDR I2) ([]I2,
 	endN := make(VertexSet)
 	q := VertexSet{end: true}
 	for v, y := range paths.V {
-		if !y || !v.InRect(boundsUL, boundsDR) {
+		if !y || !limits.Contains(v) {
 			continue
 		}
 		q[v] = true
