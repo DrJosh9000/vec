@@ -238,14 +238,13 @@ func FindPath(obstacles, paths *Graph, start, end I2, limits Rect) ([]I2, error)
 
 	// Traverse the optimal path and then put it in the right order.
 	v := end
-	var rpath []I2
+	var path []I2
 	for v != start {
-		rpath = append(rpath, v)
+		path = append(path, v)
 		v = prev[v]
 	}
-	path := make([]I2, len(rpath))
-	for i := 0; i < len(rpath); i++ {
-		path[i] = rpath[len(rpath)-i-1]
+	for i := 0; i < len(path)/2; i++ {
+		path[i], path[len(path)-1-i] = path[len(path)-1-i], path[i]
 	}
 	return path, nil
 }
