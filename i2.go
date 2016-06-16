@@ -206,3 +206,14 @@ func SegmentNearestPoint(u, v, p I2) (I2, int64) {
 	}
 	return q, d
 }
+
+// RectRange makes a list of integer points contained in the Cartesian product [ul.X, dr.X) * [ul.Y, dr.Y).
+func RectRange(ul, dr I2) []I2 {
+	r := make([]I2, 0, (dr.X-ul.X)*(dr.Y-ul.Y))
+	for x := ul.X; x < dr.X; x++ {
+		for y := ul.Y; y < dr.Y; y++ {
+			r = append(r, I2{x, y})
+		}
+	}
+	return r
+}

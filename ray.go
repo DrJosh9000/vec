@@ -30,17 +30,17 @@ func cell(v, cellSize I2) (w I2) {
 // CellsTouchingSegment calls touch for every rectangular cell that
 // the line segment (start-end) overlaps, stopping at end or when touch
 // returns false.
-func CellsTouchingSegment(cellSize, start, end I2, touch func(cell I2) bool) {
+func CellsTouchingSegment(cellSize, start, end I2, touch func(cell I2) bool) bool {
 	p, q := cell(start, cellSize), cell(end, cellSize)
 	s := q.Sub(p).Sgn()
 	// Special case: axis-aligned movement.
 	if s.X == 0 || s.Y == 0 {
 		for {
 			if !touch(p) {
-				return
+				return false
 			}
 			if p == q {
-				return
+				return true
 			}
 			p = p.Add(s)
 		}
@@ -65,14 +65,14 @@ func CellsTouchingSegment(cellSize, start, end I2, touch func(cell I2) bool) {
 	//log.Printf("CellsTouchingSegment general case: v, t, d = %v, %v, %v", v, t, d)
 	for {
 		if !touch(p) {
-			return
+			return false
 		}
 		if p == q {
-			return
+			return true
 		}
 		if t.X > 1 && t.Y > 1 {
 			//log.Printf("CellsTouchingSegment general case: got to p = %v (q = %v) but t > 1 (t = %v)", p, q, t)
-			return
+			return true
 		}
 		if t.X < t.Y {
 			t.X += d.X

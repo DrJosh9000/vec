@@ -30,6 +30,10 @@ func (r Rect) Contains(p I2) bool {
 	return p.X >= r.UL.X && p.X < r.DR.X && p.Y >= r.UL.Y && p.Y < r.DR.Y
 }
 
+func (r Rect) Expand(e I2) Rect {
+	return Rect{UL: r.UL.Sub(e), DR: r.DR.Add(e)}
+}
+
 func (r Rect) Overlaps(s Rect) bool {
 	return s.DR.X > r.UL.X && s.UL.X < r.DR.X && s.DR.Y > r.UL.Y && s.UL.Y < r.DR.Y
 }
